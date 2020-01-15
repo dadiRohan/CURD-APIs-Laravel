@@ -16,12 +16,21 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/logout', 'Auth/LoginController@logout');
-
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['twostep']], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['twostep', 'auth']], function () {
 
-    Route::get('/display', 'NotesController@index')->name('display');
+    Route::middleware(['password_expired'])->group(function () {
+        Route::get('/home', 'HomeController@index')->name('home');
+
+        Route::get('/display', 'NotesController@index')->name('display');
+    });
+
+    /*After x days Login reset*/
+    Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')
+        ->name('password.expired');
+
+    Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')
+        ->name('password.post_expired');
+
 });
