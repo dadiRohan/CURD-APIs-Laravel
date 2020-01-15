@@ -1,3 +1,11 @@
+For Accessing those APIs you have to create account and login after tables migrations.
+
+Because at the same APIs we have added more security features for login
+
+[A] Login 3 attempts
+[B] After login 4 digit pin (send mail to email address)
+[C] Reset Password ask every 30 days.
+
 # CURD-APIs-Laravel
 Open Terminal : php artisan serve --port=8010
 
